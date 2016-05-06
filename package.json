@@ -1,0 +1,21 @@
+{
+  "name": "get-set",
+  "version": "0.0.0",
+  "description": "Easy runtime typechecking for your constructors.",
+  "main": "src/get-set.js",
+  "scripts": {
+    "test": "mocha --opts test/mocha.opts"
+  },
+  "author": "Scotty Eckenthal",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "4.11.2"
+  },
+  "devDependencies": {
+    "chai": "3.5.0",
+    "mocha": "2.4.5",
+    "rfr": "1.2.3",
+    "sinon": "1.17.4",
+    "sinon-chai": "2.8.0"
+  }
+}
