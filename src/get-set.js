@@ -53,6 +53,11 @@ GetSet.prototype.set = function(prop, val) {
 };
 
 GetSet.prototype.get = function(prop) {
+	
+	if (_.isUndefined(this._props[prop])) {
+		throw Error('TODO');
+	}
+
 	return this._props[prop];
 };
 
