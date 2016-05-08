@@ -20,13 +20,7 @@ var SPY_METHODS = [
 
 describe('GetSet', function() {
 
-	function Person(initConfig) {
-		this.initialize(initConfig);
-	}
-
-	_.extend(Person.prototype, GetSet.prototype);
-
-	Person.prototype.useInterface({
+	var Person = GetSet.interface({
 		name: {
 			type: 'string',
 			required: true
@@ -36,7 +30,7 @@ describe('GetSet', function() {
 			required: true
 		}
 	});
-
+	
 	beforeEach(function() {
 		
 		_.each(SPY_METHODS, function(methodName) {

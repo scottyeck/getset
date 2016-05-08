@@ -77,4 +77,17 @@ GetSet.prototype.useInterface = function(_interface) {
 	this._interface = _interface;
 };
 
+GetSet.interface = function(_interface) {
+
+	function Descendent(initConfig) {
+		this.initialize(initConfig);	
+	}
+
+	_.extend(Descendent.prototype, this.prototype);
+
+	Descendent.prototype.useInterface(_interface);
+
+	return Descendent;
+}
+
 module.exports = GetSet;
