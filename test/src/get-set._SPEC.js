@@ -135,10 +135,8 @@ describe('GetSet', function() {
 			});
 		});
 
-		it('It throws an error when the desired key does not exist.', function() {
-			expect(function() {
-				var foo = person.get('foo');
-			}).to.throw();
+		it('It returns undefined when the desired key does not exist.', function() {
+			expect(person.get('foo')).to.equal(undefined);
 		});
 
 		it('It returns the desired property value.', function() {
