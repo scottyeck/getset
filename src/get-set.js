@@ -37,6 +37,9 @@ GetSet.prototype.initialize = function(initConfig) {
 	});
 
 	_.each(this._interface, function(entry, prop) {
+		if (entry.default && _.isUndefined(self.get(prop))) {
+			self.set(prop, entry.default);
+		}
 		if (entry.required && _.isUndefined(self.get(prop))) {
 			throw Error('TODO');
 		}
@@ -50,7 +53,7 @@ GetSet.prototype.set = function(prop, val) {
 	if (propEntry && TYPE_CHECK_METHODS[propEntry.type](val) && (!propEntry.validate || propEntry.validate(val))) {
 		this._props[prop] = val;
 	} else {
-		throw Error('TODO');
+		throw Error('Cannot set prop: ' + prop + ' with val: ' + val);
 	}
 };
 
@@ -69,9 +72,10 @@ GetSet.prototype.useInterface = function(_interface) {
 
 			var isValidTypeKey = (key === 'type' && _.isFunction(TYPE_CHECK_METHODS[val])),
 				isValidRequiredKey = (key === 'required' && _.isBoolean(val)),
-				isValidValidateKey = (key === 'validate' && _.isFunction(val));
+				isValidValidateKey = (key === 'validate' && _.isFunction(val)),
+				isValidDefaultKey = (key === 'default');
 			
-			if (!isValidTypeKey && !isValidRequiredKey && !isValidValidateKey) {
+			if (!isValidTypeKey && !isValidRequiredKey && !isValidValidateKey && !isValidDefaultKey) {
 				throw Error('Received ' + val + ' and ' + key);
 			}
 		});

@@ -34,6 +34,10 @@ describe('GetSet', function() {
 			validate: function(val) {
 				return val === 'foo';
 			}
+		},
+		species: {
+			type: 'string',
+			default: 'Human'
 		}
 	});
 	
@@ -87,9 +91,14 @@ describe('GetSet', function() {
 				age: 26
 			});
 
-			expect(SPY.set).to.have.been.calledTwice;
+			expect(SPY.set).to.have.been.calledThrice;
 			expect(SPY.set).to.have.been.calledWith('name', 'Scotty');
 			expect(SPY.set).to.have.been.calledWith('age', 26);
+
+			/*
+			 * Tests usage of `default` key.
+			 */
+			expect(SPY.set).to.have.been.calledWith('species', 'Human');
 		});
 	});
 
