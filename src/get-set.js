@@ -47,8 +47,10 @@ GetSet.prototype.set = function(prop, val) {
 
 	var propEntry = this._interface[prop];
 
-	if (propEntry && TYPE_CHECK_METHODS[propEntry.type](val)) {
+	if (propEntry && TYPE_CHECK_METHODS[propEntry.type](val) && (!propEntry.validate || propEntry.validate(val))) {
 		this._props[prop] = val;
+	} else {
+		throw Error('TODO');
 	}
 };
 
@@ -66,9 +68,10 @@ GetSet.prototype.useInterface = function(_interface) {
 		_.each(entry, function(val, key) {
 
 			var isValidTypeKey = (key === 'type' && _.isFunction(TYPE_CHECK_METHODS[val])),
-				isValidRequiredKey = (key === 'required' && _.isBoolean(val));
+				isValidRequiredKey = (key === 'required' && _.isBoolean(val)),
+				isValidValidateKey = (key === 'validate' && _.isFunction(val));
 			
-			if (!isValidTypeKey && !isValidRequiredKey) {
+			if (!isValidTypeKey && !isValidRequiredKey && !isValidValidateKey) {
 				throw Error('Received ' + val + ' and ' + key);
 			}
 		});

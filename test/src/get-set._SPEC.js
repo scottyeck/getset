@@ -28,6 +28,12 @@ describe('GetSet', function() {
 		age: {
 			type: 'integer',
 			required: true
+		},
+		foo: {
+			type: 'string',
+			validate: function(val) {
+				return val === 'foo';
+			}
 		}
 	});
 	
@@ -50,7 +56,7 @@ describe('GetSet', function() {
 
 			expect(function() {
 				var person = new Person();
-			}).to.throw;
+			}).to.throw();
 		});
 
 		it('It throws an error when fields are supplied with incorrect type.', function() {
@@ -60,7 +66,7 @@ describe('GetSet', function() {
 					name: 'Scotty',
 					age: 'foo'
 				});
-			}).to.throw;
+			}).to.throw();
 		});
 
 		it('It throws an error when required fields are not supplied.', function() {
@@ -69,7 +75,7 @@ describe('GetSet', function() {
 				var person = new Person({
 					name: 'Scotty'
 				});
-			}).to.throw;
+			}).to.throw();
 		});
 
 		it('It hands off to `.set()` as desired.', function() {
@@ -101,15 +107,22 @@ describe('GetSet', function() {
 		it('It throws an error when the key is invalid.', function() {
 
 			expect(function() {
-				person.set('foo', 'bar')
-			}).to.throw;
+				person.set('hi', 'bye')
+			}).to.throw();
 		});
 
 		it('It throws an error when the value is of an incorrect type.', function() {
 
 			expect(function() {
 				person.set('name', 26)
-			}).to.throw;
+			}).to.throw();
+		});
+
+		it('It throws an error when a validated field is modified with an invalid value.', function() {
+			
+			expect(function() {
+				person.set('foo', 'bar');
+			}).to.throw();
 		});
 
 		it('It sets the proper instance variables.', function() {
