@@ -38,7 +38,7 @@ GetSet.prototype.initialize = function(initConfig) {
 
 	_.each(this._interface, function(entry, prop) {
 		if (entry.default && _.isUndefined(self.get(prop))) {
-			self.set(prop, entry.default);
+			self.set(prop, _.clone(entry.default));
 		}
 		if (entry.required && _.isUndefined(self.get(prop))) {
 			throw Error('TODO');
@@ -82,6 +82,10 @@ GetSet.prototype.useInterface = function(_interface) {
 	});
 
 	this._interface = _interface;
+};
+
+GetSet.prototype.plainify = function() {
+	return this._props;
 };
 
 GetSet.interface = function(_interface) {

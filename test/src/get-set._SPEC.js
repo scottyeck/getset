@@ -159,6 +159,14 @@ describe('GetSet', function() {
 			expect(person.get('name')).to.equal('Scotty');
 			expect(person.get('age')).to.equal(26);
 		});
+
+		it('It operates on multiple instances without collision.', function() {
+
+			var person2 = new Person({
+				name: 'Amany',
+				age: 27
+			});
+		});
 	});
 
 	describe('.useInterface()', function() {
@@ -218,6 +226,23 @@ describe('GetSet', function() {
 			Foo.prototype.useInterface(_interface);
 
 			expect(Foo.prototype._interface).to.equal(_interface);
+		});
+	});
+
+	describe('.plainify()', function() {
+
+		it('It returns a plain object as desired.', function() {
+
+			var personConfig = {
+				name: 'Scotty',
+				age: 26,
+				species: 'Alligator'
+			};
+			var person = new Person(personConfig);
+
+			var plain = person.plainify();
+			expect(plain).to.eql(personConfig);
+
 		});
 	});
 });
