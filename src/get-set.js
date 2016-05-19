@@ -92,6 +92,10 @@ GetSet.interface = function(_interface) {
 
 	function Descendent(initConfig) {
 		this.initialize(initConfig);	
+
+		if (_.isFunction(this.onConstruct)) {
+			this.onConstruct();
+		}
 	}
 
 	_.extend(Descendent.prototype, this.prototype);

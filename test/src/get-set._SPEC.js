@@ -42,7 +42,6 @@ describe('GetSet', function() {
 	});
 	
 	beforeEach(function() {
-		
 		_.each(SPY_METHODS, function(methodName) {
 			SPY[methodName] = sinon.spy(Person.prototype, methodName);
 		});
@@ -243,6 +242,32 @@ describe('GetSet', function() {
 			var plain = person.plainify();
 			expect(plain).to.eql(personConfig);
 
+		});
+	});
+
+	describe('.interface()', function() {
+
+		it('It returns a constructor that will call `.onConstruct` if present.', function() {
+
+			Person.prototype.onConstruct = function() {
+				this.set('species', 'Alien');
+			};
+
+			SPY.onConstruct = sinon.spy(Person.prototype, 'onConstruct');
+
+			var person = new Person({
+				name: 'Scotty',
+				age: 26
+			});
+
+			expect(SPY.onConstruct).to.have.been.calledOnce;
+			expect(person.get('species')).to.equal('Alien');
+
+			/*
+			 * Teardown
+			 */
+			SPY.onConstruct.restore();
+			delete Person.prototype.onConstruct;
 		});
 	});
 });
