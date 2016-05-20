@@ -84,7 +84,7 @@ GetSet.prototype.useInterface = function(_interface) {
 	this._interface = _interface;
 };
 
-GetSet.prototype.plainify = function() {
+GetSet.prototype.toPlainObj = function() {
 	return this._props;
 };
 

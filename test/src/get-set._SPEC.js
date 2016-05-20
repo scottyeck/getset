@@ -228,7 +228,7 @@ describe('GetSet', function() {
 		});
 	});
 
-	describe('.plainify()', function() {
+	describe('.toPlainObj()', function() {
 
 		it('It returns a plain object as desired.', function() {
 
@@ -239,7 +239,7 @@ describe('GetSet', function() {
 			};
 			var person = new Person(personConfig);
 
-			var plain = person.plainify();
+			var plain = person.toPlainObj();
 			expect(plain).to.eql(personConfig);
 
 		});
